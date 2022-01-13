@@ -1,0 +1,64 @@
+.css-7355d1-MuiBackdrop-root-MuiModal-backdrop {
+    background: none;
+    background-color: rgba(2, 1, 1, 0.712);
+
+}
+
+#name-input {
+    width: 60vw;
+    min-width: 310px;
+    background-color: white;
+    border-radius: 8px;
+
+}
+
+
+
+.css-13i4rnv-MuiGrid-root {
+    margin: 10px;
+}
+
+#formBox {
+    border: 1px solid rgb(230, 230, 230);
+    padding: 5vw;
+    border-radius: 4px;
+    background-color: #e6e9eb;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#formBox form input,
+#formBox form textarea {
+    margin: 10px;
+    width: 60vw;
+    min-width: 300px;
+    padding: 10px;
+    font-size: 18px;
+    line-height: 24px;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+#formBox form textarea {
+    min-height: 160px;
+}
+
+#formBox form input[type="submit"] {
+    cursor: pointer;
+    border: none;
+    border: 1px solid grey;
+    max-width: 200px;
+}
+
+#formBox form input[type="submit"]:hover {
+    transition: all 0.2s;
+    background-color: lightblue;
+}
+
+#submit-btn {
+    width: 260px;
+    height: 50px;
+    font-size: 20px;
+}

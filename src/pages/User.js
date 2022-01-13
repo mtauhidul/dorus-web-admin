@@ -2,7 +2,6 @@ import plusFill from '@iconify/icons-eva/plus-fill';
 import { Icon } from '@iconify/react';
 // material
 import {
-  Avatar,
   Button,
   Card,
   Checkbox,
@@ -16,26 +15,24 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { sentenceCase } from 'change-case';
+import axios from 'axios';
 import { filter } from 'lodash';
-import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import Label from '../components/Label';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // components
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import { baseUrl, integrity } from '../utils/api';
 //
 import USERLIST from '../_mocks_/user';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
+  { id: 'name', label: 'Title', alignRight: false },
+  { id: 'company', label: 'Path', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' }
 ];
@@ -78,6 +75,32 @@ export default function User() {
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [data, setData] = useState([]);
+
+  const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const fetchData = async () => {
+    const fetchUrl = `${baseUrl}/admin/post/en/1`;
+    const token = window.sessionStorage.getItem('token');
+
+    const headers = {
+      integrity,
+      Authorization: token
+    };
+    const dataArray = [];
+    const response = await axios.get(fetchUrl, { headers });
+
+    dataArray.push(response.data.message);
+
+    setData(dataArray);
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -131,6 +154,8 @@ export default function User() {
 
   const isUserNotFound = filteredUsers.length === 0;
 
+  const navigatePage = () => navigate('/dashboard/add', { replace: true });
+
   return (
     <Page title="User | Minimal-UI">
       <Container>
@@ -138,12 +163,7 @@ export default function User() {
           <Typography variant="h4" gutterBottom>
             Blogs
           </Typography>
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to="#"
-            startIcon={<Icon icon={plusFill} />}
-          >
+          <Button variant="contained" onClick={navigatePage} startIcon={<Icon icon={plusFill} />}>
             New Blog
           </Button>
         </Stack>
@@ -168,53 +188,41 @@ export default function User() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                      const isItemSelected = selected.indexOf(name) !== -1;
+                  {data.map((blog, index) => (
+                    <TableRow
+                      hover
+                      key={index}
+                      tabIndex={-1}
+                      role="checkbox"
+                      // selected={isItemSelected}
+                      // aria-checked={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                        // checked={isItemSelected}
+                        // onChange={(event) => handleClick(event, name)}
+                        />
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                          <Typography variant="subtitle2" noWrap />
+                          <Typography variant="subtitle2" noWrap>
+                            {blog.header.title}
+                          </Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell align="left">/{blog.page_url}</TableCell>
+                      <TableCell align="left">
+                        <Typography variant="subtitle2" noWrap>
+                          Approved
+                        </Typography>
+                      </TableCell>
 
-                      return (
-                        <TableRow
-                          hover
-                          key={id}
-                          tabIndex={-1}
-                          role="checkbox"
-                          selected={isItemSelected}
-                          aria-checked={isItemSelected}
-                        >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              checked={isItemSelected}
-                              onChange={(event) => handleClick(event, name)}
-                            />
-                          </TableCell>
-                          <TableCell component="th" scope="row" padding="none">
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                              <Avatar alt={name} src={avatarUrl} />
-                              <Typography variant="subtitle2" noWrap>
-                                {name}
-                              </Typography>
-                            </Stack>
-                          </TableCell>
-                          <TableCell align="left">{company}</TableCell>
-                          <TableCell align="left">{role}</TableCell>
-                          <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                          <TableCell align="left">
-                            <Label
-                              variant="ghost"
-                              color={(status === 'banned' && 'error') || 'success'}
-                            >
-                              {sentenceCase(status)}
-                            </Label>
-                          </TableCell>
-
-                          <TableCell align="right">
-                            <UserMoreMenu />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
+                      <TableCell align="right">
+                        <UserMoreMenu />
+                      </TableCell>
+                    </TableRow>
+                  ))}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />
@@ -228,6 +236,7 @@ export default function User() {
                         <SearchNotFound searchQuery={filterName} />
                       </TableCell>
                     </TableRow>
+                    )
                   </TableBody>
                 )}
               </Table>
