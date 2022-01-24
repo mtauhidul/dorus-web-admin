@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import editFill from '@iconify/icons-eva/edit-fill';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 import trash2Outline from '@iconify/icons-eva/trash-2-outline';

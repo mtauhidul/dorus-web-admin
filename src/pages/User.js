@@ -76,24 +76,23 @@ export default function User() {
 
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    const fetchUrl = `${baseUrl}/admin/post/en`;
-    const token = window.sessionStorage.getItem('token');
-
-    const headers = {
-      integrity,
-      Authorization: token
-    };
-    const response = await axios.get(fetchUrl, { headers });
-
-    setData(response.data.message);
-    setGlobal(response.data.message);
-    console.log(response.data.message);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const fetchUrl = `${baseUrl}/admin/post/en`;
+      const token = window.sessionStorage.getItem('token');
+
+      const headers = {
+        integrity,
+        Authorization: token
+      };
+      const response = await axios.get(fetchUrl, { headers });
+
+      setData(response.data.message);
+      setGlobal(response.data.message);
+      console.log(response.data.message);
+    };
     fetchData();
-  }, []);
+  }, [setGlobal]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

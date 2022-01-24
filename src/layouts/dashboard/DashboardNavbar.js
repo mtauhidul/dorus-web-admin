@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { AppBar, Box, Stack, Toolbar } from '@mui/material';
 // material
 import { styled } from '@mui/material/styles';

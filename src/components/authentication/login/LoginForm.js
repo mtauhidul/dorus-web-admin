@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { Icon } from '@iconify/react';
