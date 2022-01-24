@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // material
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
