@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { baseUrl, integrity } from '../utils/api';
+import Form from './components/Form';
 
 export default function AddBlog() {
   const {
@@ -111,86 +112,7 @@ export default function AddBlog() {
 
   return (
     <Box id="formBox">
-      <form
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h2>Page Submission Form</h2>
-        <br />
-        <input
-          type="number"
-          placeholder="Associated Template"
-          {...register('associated_template', { required: true })}
-        />
-        <input
-          type="text"
-          placeholder="Page URL"
-          {...register('page_url', {
-            required: true
-          })}
-        />
-        <input type="text" placeholder="Title" {...register('title', { required: true })} />
-        <input
-          type="text"
-          placeholder="Asset URL"
-          {...register('asset', {
-            required: true
-          })}
-        />
-        <div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Initial Banner Section</h3>
-            <input type="text" placeholder="Section Title" {...register('sectionTitle1')} />
-            <textarea placeholder="Section Description" {...register('sectionDescription1', {})} />
-            <input type="text" placeholder="Section Asset URL" {...register('asset1')} />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Text Paragraph Section</h3>
-            <input type="text" placeholder="Section Title" {...register('sectionTitle2')} />
-            <textarea placeholder="Section Description" {...register('sectionDescription2', {})} />
-            <input type="text" placeholder="Background Color" {...register('backgroundColor2')} />
-            <input type="text" placeholder="Text Color" {...register('textColor2')} />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Flowchart Banner Section</h3>
-            <input type="text" placeholder="Section Title" {...register('sectionTitle3')} />
-            <input type="text" placeholder="Section Asset URL" {...register('asset3')} />
-            <input type="text" placeholder="Background Color" {...register('backgroundColor3')} />
-            <input type="text" placeholder="Text Color" {...register('textColor3')} />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Paragraph With Side Image Section</h3>
-            <input type="text" placeholder="Section Title" {...register('sectionTitle4')} />
-            <textarea placeholder="Section Description" {...register('sectionDescription4', {})} />
-            <input type="text" placeholder="Section Asset URL" {...register('asset4')} />
-            <input type="text" placeholder="Background Color" {...register('backgroundColor4')} />
-            <input type="text" placeholder="Text Color" {...register('textColor4')} />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Text Paragraph Section</h3>
-            <input type="text" placeholder="Section Title" {...register('sectionTitle5')} />
-            <textarea placeholder="Section Description" {...register('sectionDescription5', {})} />
-            <input type="text" placeholder="Background Color" {...register('backgroundColor5')} />
-            <input type="text" placeholder="Text Color" {...register('textColor5')} />
-          </div>
-
-          {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Paragraph With Side Image Section</h3>
-          </div> */}
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ textTransform: 'capitalize' }}>Banner To Another Article Section</h3>
-            <input type="text" placeholder="Section Title" {...register('sectionTitle7')} />
-            <input type="text" placeholder="Section Asset URL" {...register('asset7')} />
-          </div>
-        </div>
-
-        <input type="submit" />
-      </form>
+      <Form />
     </Box>
   );
 }

@@ -2,6 +2,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import AddBlog from './pages/AddBlog';
+import EditBlog from './pages/EditBlog';
 //
 import Login from './pages/Login';
 import NotFound from './pages/Page404';
@@ -20,7 +21,8 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <User /> },
-        { path: 'add', element: <AddBlog /> }
+        { path: 'add', element: <AddBlog /> },
+        { path: 'edit/:id', element: <EditBlog /> }
       ]
     },
     {

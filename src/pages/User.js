@@ -11,14 +11,14 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TablePagination,
   TableRow,
   Typography
 } from '@mui/material';
 import axios from 'axios';
 import { filter } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../App';
 // components
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
@@ -30,12 +30,7 @@ import USERLIST from '../_mocks_/user';
 
 // ----------------------------------------------------------------------
 
-const TABLE_HEAD = [
-  { id: 'name', label: 'Title', alignRight: false },
-  { id: 'company', label: 'Path', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: '' }
-];
+const TABLE_HEAD = [{ id: 'name', label: 'Title', alignRight: false }, { id: '' }];
 
 // ----------------------------------------------------------------------
 
@@ -69,6 +64,7 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function User() {
+  const [global, setGlobal] = useContext(GlobalContext);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -77,25 +73,21 @@ export default function User() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data, setData] = useState([]);
 
-  const [open, setOpen] = useState(false);
-
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    const fetchUrl = `${baseUrl}/admin/post/en/1`;
+    const fetchUrl = `${baseUrl}/admin/post/en`;
     const token = window.sessionStorage.getItem('token');
 
     const headers = {
       integrity,
       Authorization: token
     };
-    const dataArray = [];
     const response = await axios.get(fetchUrl, { headers });
 
-    dataArray.push(response.data.message);
-
-    setData(dataArray);
-    console.log(response);
+    setData(response.data.message);
+    setGlobal(response.data.message);
+    console.log(response.data.message);
   };
 
   useEffect(() => {
@@ -207,19 +199,13 @@ export default function User() {
                         <Stack direction="row" alignItems="center" spacing={2}>
                           <Typography variant="subtitle2" noWrap />
                           <Typography variant="subtitle2" noWrap>
-                            {blog.header.title}
+                            {blog.en.header.title}
                           </Typography>
                         </Stack>
                       </TableCell>
-                      <TableCell align="left">/{blog.page_url}</TableCell>
-                      <TableCell align="left">
-                        <Typography variant="subtitle2" noWrap>
-                          Approved
-                        </Typography>
-                      </TableCell>
 
                       <TableCell align="right">
-                        <UserMoreMenu />
+                        <UserMoreMenu id={blog.page_id} />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -242,16 +228,6 @@ export default function User() {
               </Table>
             </TableContainer>
           </Scrollbar>
-
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={USERLIST.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
         </Card>
       </Container>
     </Page>

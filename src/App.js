@@ -9,6 +9,7 @@ import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
 
 // ----------------------------------------------------------------------
+export const GlobalContext = createContext();
 
 export const AuthContext = createContext();
 
@@ -17,6 +18,7 @@ export default function App() {
     status: false,
     token: ''
   });
+  const [global, setGlobal] = useState([]);
 
   if (auth)
     return (
@@ -24,9 +26,11 @@ export default function App() {
         <ScrollToTop />
         <GlobalStyles />
         <BaseOptionChartStyle />
-        <AuthContext.Provider value={[auth, setAuth]}>
-          <Router />
-        </AuthContext.Provider>
+        <GlobalContext.Provider value={[global, setGlobal]}>
+          <AuthContext.Provider value={[auth, setAuth]}>
+            <Router />
+          </AuthContext.Provider>
+        </GlobalContext.Provider>
       </ThemeConfig>
     );
 }

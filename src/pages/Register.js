@@ -1,6 +1,7 @@
 import { Box, Card, Container, Link, Typography } from '@mui/material';
 // material
 import { styled } from '@mui/material/styles';
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 import { MHidden } from '../components/@material-extend';
 import { RegisterForm } from '../components/authentication/register';
@@ -8,6 +9,7 @@ import { RegisterForm } from '../components/authentication/register';
 import Page from '../components/Page';
 // layouts
 import AuthLayout from '../layouts/AuthLayout';
+import { baseUrl, integrity } from '../utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +41,22 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Register() {
+  const headers = {
+    integrity
+  };
+
+  const registerNewAdmin = async (values) => {
+    const data = {
+      first_name: values.firstName,
+      last_name: values.lastName,
+      password: values.password,
+      email: values.email,
+      role_id: '1'
+    };
+    const response = await axios.post(`${baseUrl}/users`, data, { headers });
+
+    console.log(response);
+  };
   return (
     <RootStyle title="Register | Minimal-UI">
       <AuthLayout>
@@ -50,9 +68,6 @@ export default function Register() {
 
       <MHidden width="mdDown">
         <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Manage the job more effectively with Minimal
-          </Typography>
           <img alt="register" src="/static/illustrations/illustration_register.png" />
         </SectionStyle>
       </MHidden>
@@ -61,14 +76,11 @@ export default function Register() {
         <ContentStyle>
           <Box sx={{ mb: 5 }}>
             <Typography variant="h4" gutterBottom>
-              Get started absolutely free.
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              Free forever. No credit card needed.
+              Register a new admin
             </Typography>
           </Box>
 
-          <RegisterForm />
+          <RegisterForm registerNewAdmin={registerNewAdmin} />
 
           <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
             By registering, I agree to Minimal&nbsp;
