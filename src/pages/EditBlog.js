@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';

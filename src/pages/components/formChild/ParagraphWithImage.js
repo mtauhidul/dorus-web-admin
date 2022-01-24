@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
 const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImage }) => {

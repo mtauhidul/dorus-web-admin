@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Icon } from '@iconify/react';
 // material
