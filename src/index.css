@@ -103,3 +103,9 @@ label {
 h3 {
     font-size: 1.5rem;
 }
+
+.authInput input {
+    border: none !important;
+    min-width: 300px !important;
+    background: transparent !important;
+}

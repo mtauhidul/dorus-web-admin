@@ -52,6 +52,7 @@ export default function LoginForm({ getAuthToken }) {
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField
+            className="authInput"
             fullWidth
             autoComplete="username"
             type="email"
@@ -65,6 +66,7 @@ export default function LoginForm({ getAuthToken }) {
           />
 
           <TextField
+            className="authInput"
             onClick={() => {
               setSubmitting(false);
             }}

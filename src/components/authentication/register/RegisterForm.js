@@ -49,6 +49,7 @@ export default function RegisterForm({ registerNewAdmin }) {
         <Stack spacing={3}>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
+              className="authInput"
               fullWidth
               label="First name"
               {...getFieldProps('firstName')}
@@ -57,6 +58,7 @@ export default function RegisterForm({ registerNewAdmin }) {
             />
 
             <TextField
+              className="authInput"
               fullWidth
               label="Last name"
               {...getFieldProps('lastName')}
@@ -66,6 +68,7 @@ export default function RegisterForm({ registerNewAdmin }) {
           </Stack>
 
           <TextField
+            className="authInput"
             fullWidth
             autoComplete="username"
             type="email"
@@ -76,6 +79,7 @@ export default function RegisterForm({ registerNewAdmin }) {
           />
 
           <TextField
+            className="authInput"
             fullWidth
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
