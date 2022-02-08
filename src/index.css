@@ -65,7 +65,8 @@
 
 input[type="number"],
 input,
-textarea {
+textarea,
+select {
     width: 100%;
     min-width: 100% !important;
     font-weight: 500;

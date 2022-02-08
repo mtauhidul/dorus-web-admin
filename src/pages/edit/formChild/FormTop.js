@@ -39,7 +39,19 @@ const FormTop = ({ register, setFormTop, formTop, associated_template, header, u
         }}
       />
       <label htmlFor="">Page Type</label>
-      <input
+      <select
+        defaultChecked={type}
+        required
+        onBlur={(e) => {
+          setFormTop({ ...formTop, page_type: e.target.value });
+        }}
+        name="page_type"
+        id="page_type"
+      >
+        <option value="1">Blog</option>
+        <option value="2">Page</option>
+      </select>
+      {/* <input
         defaultValue={type}
         type="number"
         style={{ width: '150px' }}
@@ -48,7 +60,7 @@ const FormTop = ({ register, setFormTop, formTop, associated_template, header, u
           setFormTop({ ...formTop, page_type: e.target.value });
         }}
         required
-      />
+      /> */}
       <label htmlFor="">Page URL</label>
       <input
         defaultValue={url}

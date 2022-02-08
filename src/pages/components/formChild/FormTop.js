@@ -37,15 +37,24 @@ const FormTop = ({ register, setFormTop, formTop }) => {
         }}
       />
       <label htmlFor="">Page Type</label>
-      <input
+      <select
+        required
+        onBlur={(e) => {
+          setFormTop({ ...formTop, page_type: e.target.value });
+        }}
+        name="page_type"
+        id="page_type"
+      >
+        <option value="1">Blog</option>
+        <option value="2">Page</option>
+      </select>
+      {/* <input
         type="number"
         style={{ width: '150px' }}
         placeholder="Page Type"
-        onChange={(e) => {
-          setFormTop({ ...formTop, page_type: e.target.value });
-        }}
-        required
-      />
+        
+        
+      /> */}
       <label htmlFor="">Page URL</label>
       <input
         type="text"
