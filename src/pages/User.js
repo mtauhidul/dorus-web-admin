@@ -24,14 +24,17 @@ import { GlobalContext } from '../App';
 import Page from '../components/Page';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import { UserListHead, UserMoreMenu } from '../components/_dashboard/user';
 import { baseUrl, integrity } from '../utils/api';
 //
 import USERLIST from '../_mocks_/user';
 
 // ----------------------------------------------------------------------
 
-const TABLE_HEAD = [{ id: 'name', label: 'Title', alignRight: false }, { id: '' }];
+const TABLE_HEAD = [
+  { id: 'name', label: 'Title', alignRight: false },
+  { id: 'status', label: 'Status', alignRight: false }
+];
 
 // ----------------------------------------------------------------------
 
@@ -161,12 +164,6 @@ export default function User() {
         </Stack>
 
         <Card>
-          <UserListToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
-          />
-
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -200,6 +197,14 @@ export default function User() {
                           <Typography variant="subtitle2" noWrap />
                           <Typography variant="subtitle2" noWrap>
                             {blog.en.header.title}
+                          </Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                          <Typography variant="subtitle2" noWrap />
+                          <Typography variant="subtitle2" noWrap>
+                            {blog.en.header.status ? blog.en.header.status : 'Blog Status'}
                           </Typography>
                         </Stack>
                       </TableCell>

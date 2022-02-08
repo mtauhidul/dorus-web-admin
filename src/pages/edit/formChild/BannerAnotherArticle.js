@@ -1,7 +1,13 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-const BannerAnotherArticle = ({ register, bannerAnotherArticle, setBannerAnotherArticle }) => {
+const BannerAnotherArticle = ({
+  register,
+  bannerAnotherArticle,
+  setBannerAnotherArticle,
+  data
+}) => {
   const [error, setError] = useState('');
   const validate = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -20,9 +26,14 @@ const BannerAnotherArticle = ({ register, bannerAnotherArticle, setBannerAnother
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Banner To Another Article Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
+
       <input
+        defaultValue={data?.sectionTitle}
         type="text"
         placeholder="Section Title"
         onChange={(e) => {
@@ -34,11 +45,16 @@ const BannerAnotherArticle = ({ register, bannerAnotherArticle, setBannerAnother
             }
           });
         }}
+        required
       />
+      <label htmlFor="">Section Asset URL</label>
+
       <input
+        defaultValue={data?.asset}
         type="text"
         placeholder="Section Asset URL"
         {...register('asset7d', {
+          required: true,
           pattern: validate
         })}
         onChange={(e) => {

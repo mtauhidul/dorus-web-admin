@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
@@ -21,8 +22,11 @@ const InitialBanner = ({ register, initialBannerR, setInitialBannerR }) => {
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Initial Banner Section</h3>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <br />
+      <label htmlFor="">Section Title</label>
       <input
         type="text"
         placeholder="Section Title"
@@ -37,6 +41,7 @@ const InitialBanner = ({ register, initialBannerR, setInitialBannerR }) => {
           });
         }}
       />
+      <label htmlFor="">Section Description</label>
       <textarea
         placeholder="Section Description"
         onChange={(e) => {
@@ -50,6 +55,7 @@ const InitialBanner = ({ register, initialBannerR, setInitialBannerR }) => {
         }}
         required
       />
+      <label htmlFor="">Section Asset URL</label>
       <input
         type="text"
         placeholder="Section Asset URL"

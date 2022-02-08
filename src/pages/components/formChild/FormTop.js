@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
@@ -23,6 +24,7 @@ const FormTop = ({ register, setFormTop, formTop }) => {
       }}
     >
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Associated Template</label>
       <input
         type="number"
         min={0}
@@ -34,10 +36,9 @@ const FormTop = ({ register, setFormTop, formTop }) => {
           setFormTop({ ...formTop, associated_template: e.target.value });
         }}
       />
+      <label htmlFor="">Page Type</label>
       <input
         type="number"
-        min={0}
-        max={1}
         style={{ width: '150px' }}
         placeholder="Page Type"
         onChange={(e) => {
@@ -45,6 +46,7 @@ const FormTop = ({ register, setFormTop, formTop }) => {
         }}
         required
       />
+      <label htmlFor="">Page URL</label>
       <input
         type="text"
         placeholder="Page URL"
@@ -55,6 +57,7 @@ const FormTop = ({ register, setFormTop, formTop }) => {
           setFormTop({ ...formTop, page_url: e.target.value });
         }}
       />
+      <label htmlFor="">Title</label>
       <input
         type="text"
         placeholder="Title"
@@ -66,6 +69,7 @@ const FormTop = ({ register, setFormTop, formTop }) => {
         }}
         required
       />
+      <label htmlFor="">Asset URL</label>
       <input
         type="text"
         placeholder="Asset URL"

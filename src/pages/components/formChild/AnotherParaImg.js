@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
@@ -22,8 +23,12 @@ const AnotherParaImg = ({ register, paragraphWithImage, setParagraphWithImage })
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Paragraph With Side Image Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
+
       <input
         type="text"
         placeholder="Section Title"
@@ -37,6 +42,8 @@ const AnotherParaImg = ({ register, paragraphWithImage, setParagraphWithImage })
           });
         }}
       />
+      <label htmlFor="">Section Description</label>
+
       <textarea
         placeholder="Section Description"
         onChange={(e) => {
@@ -70,6 +77,8 @@ const AnotherParaImg = ({ register, paragraphWithImage, setParagraphWithImage })
           }
         }}
       /> */}
+      <label htmlFor="">Background Color (HEX code)</label>
+
       <input
         type="text"
         placeholder="Background Color"
@@ -91,6 +100,8 @@ const AnotherParaImg = ({ register, paragraphWithImage, setParagraphWithImage })
           }
         }}
       />
+      <label htmlFor="">Text Color (HEX code)</label>
+
       <input
         type="text"
         placeholder="Text Color"

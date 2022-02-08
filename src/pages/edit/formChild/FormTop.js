@@ -1,7 +1,9 @@
+/* eslint-disable camelcase */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-const FormTop = ({ register, setFormTop, formTop }) => {
+const FormTop = ({ register, setFormTop, formTop, associated_template, header, url, type }) => {
   const [error, setError] = useState('');
 
   const validate = new RegExp(
@@ -23,35 +25,45 @@ const FormTop = ({ register, setFormTop, formTop }) => {
       }}
     >
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Associated Template</label>
       <input
+        defaultValue={associated_template}
         type="number"
         min={0}
         max={1}
         style={{ width: '150px' }}
         placeholder="Associated Template"
+        required
         onChange={(e) => {
           setFormTop({ ...formTop, associated_template: e.target.value });
         }}
       />
+      <label htmlFor="">Page Type</label>
       <input
+        defaultValue={type}
         type="number"
-        min={0}
-        max={1}
         style={{ width: '150px' }}
         placeholder="Page Type"
         onChange={(e) => {
           setFormTop({ ...formTop, page_type: e.target.value });
         }}
+        required
       />
+      <label htmlFor="">Page URL</label>
       <input
+        defaultValue={url}
         type="text"
         placeholder="Page URL"
-        {...register('page_url', {})}
+        {...register('page_url', {
+          required: true
+        })}
         onChange={(e) => {
           setFormTop({ ...formTop, page_url: e.target.value });
         }}
       />
+      <label htmlFor="">Title</label>
       <input
+        defaultValue={header?.title}
         type="text"
         placeholder="Title"
         onChange={(e) => {
@@ -60,11 +72,15 @@ const FormTop = ({ register, setFormTop, formTop }) => {
             header: { ...formTop.header, title: e.target.value }
           });
         }}
+        required
       />
+      <label htmlFor="">Asset URL</label>
       <input
+        defaultValue={header?.asset}
         type="text"
         placeholder="Asset URL"
         {...register('asset', {
+          required: true,
           pattern: validate
         })}
         onChange={(e) => {

@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
+const TextParagraph = ({ TextParagraphR, setTextParagraph, data }) => {
   const [error, setError] = useState('');
   const pattern = '^#(?:[0-9a-fA-F]{3,4}){1,2}$';
   return (
@@ -12,9 +13,13 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Text Paragraph Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
       <input
+        defaultValue={data?.sectionTitle}
         type="text"
         placeholder="Section Title"
         onChange={(e) => {
@@ -26,8 +31,12 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
             }
           });
         }}
+        required
       />
+      <label htmlFor="">Section Description</label>
+
       <textarea
+        defaultValue={data?.sectionDescription}
         placeholder="Section Description"
         onChange={(e) => {
           setTextParagraph({
@@ -38,8 +47,12 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
             }
           });
         }}
+        required
       />
+      <label htmlFor="">Background Color (HEX code)</label>
+
       <input
+        defaultValue={data?.style?.backgroundColor}
         type="text"
         placeholder="Background Color"
         pattern={pattern}
@@ -60,8 +73,12 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
             setError('Please enter valid HEX');
           }
         }}
+        required
       />
+      <label htmlFor="">Text Color (HEX code)</label>
+
       <input
+        defaultValue={data?.style?.textColor}
         type="text"
         placeholder="Text Color"
         onChange={(e) => {
@@ -81,6 +98,7 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
             setError('Please enter valid HEX');
           }
         }}
+        required
       />
     </div>
   );

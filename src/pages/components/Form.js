@@ -143,7 +143,9 @@ const Form = () => {
       }}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2>Page Submission Form</h2>
+      <h2 style={{ fontSize: '2rem' }}>Page Submission Form</h2>
+      <br />
+      <br />
       <FormTop register={register} formTop={formTop} setFormTop={setFormTop} />
       <div>
         <InitialBanner

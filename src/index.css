@@ -62,3 +62,43 @@
     height: 50px;
     font-size: 20px;
 }
+
+input[type="number"],
+input,
+textarea {
+    width: 100%;
+    min-width: 100% !important;
+    font-weight: 500;
+    margin: 0 35px 20px;
+    height: 35px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid rgb(204, 204, 204) !important;
+    background: #F6F7F9 !important;
+    font-size: 14px;
+    height: 48px !important;
+}
+
+input[type="submit"] {
+    margin-top: 50px !important;
+    background-color: #3ab461 !important;
+    font-size: 22px !important;
+    font-weight: 600;
+}
+
+input[type="submit"]:hover {
+    background-color: #248c45 !important;
+}
+
+label {
+    text-align: left;
+    margin-right: auto;
+    margin-top: 10px;
+    color: green;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5rem;
+}

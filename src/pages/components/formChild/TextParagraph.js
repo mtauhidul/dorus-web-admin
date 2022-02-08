@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
@@ -12,8 +13,11 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Text Paragraph Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
       <input
         type="text"
         placeholder="Section Title"
@@ -28,6 +32,8 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
         }}
         required
       />
+      <label htmlFor="">Section Description</label>
+
       <textarea
         placeholder="Section Description"
         onChange={(e) => {
@@ -41,6 +47,8 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
         }}
         required
       />
+      <label htmlFor="">Background Color (HEX code)</label>
+
       <input
         type="text"
         placeholder="Background Color"
@@ -64,6 +72,8 @@ const TextParagraph = ({ TextParagraphR, setTextParagraph }) => {
         }}
         required
       />
+      <label htmlFor="">Text Color (HEX code)</label>
+
       <input
         type="text"
         placeholder="Text Color"

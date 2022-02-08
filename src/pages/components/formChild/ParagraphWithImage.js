@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
@@ -21,8 +22,12 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Paragraph With Side Image Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
+
       <input
         type="text"
         placeholder="Section Title"
@@ -37,6 +42,8 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
         }}
         required
       />
+      <label htmlFor="">Section Description</label>
+
       <textarea
         placeholder="Section Description"
         onChange={(e) => {
@@ -50,6 +57,8 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
         }}
         required
       />
+      <label htmlFor="">Section Asset URL</label>
+
       <input
         type="text"
         placeholder="Section Asset URL"
@@ -72,6 +81,8 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
           }
         }}
       />
+      <label htmlFor="">Background Color (HEX code)</label>
+
       <input
         type="text"
         placeholder="Background Color"
@@ -93,6 +104,8 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
           }
         }}
       />
+      <label htmlFor="">Text Color (HEX code)</label>
+
       <input
         type="text"
         placeholder="Text Color"

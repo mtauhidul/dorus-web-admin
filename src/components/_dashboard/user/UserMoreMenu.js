@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import editFill from '@iconify/icons-eva/edit-fill';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
-import trash2Outline from '@iconify/icons-eva/trash-2-outline';
 import { Icon } from '@iconify/react';
 // material
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
@@ -32,9 +31,9 @@ export default function UserMoreMenu({ id }) {
       >
         <MenuItem sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
-            <Icon icon={trash2Outline} width={24} height={24} />
+            <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
-          <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText primary="Update Status" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
 
         <MenuItem

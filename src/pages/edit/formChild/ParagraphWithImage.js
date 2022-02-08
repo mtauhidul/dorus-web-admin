@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImage }) => {
+const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImage, data }) => {
   const [error, setError] = useState('');
   const pattern = '^#(?:[0-9a-fA-F]{3,4}){1,2}$';
   const validate = new RegExp(
@@ -21,9 +22,14 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Paragraph With Side Image Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
+
       <input
+        defaultValue={data?.sectionTitle}
         type="text"
         placeholder="Section Title"
         onChange={(e) => {
@@ -35,8 +41,12 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
             }
           });
         }}
+        required
       />
+      <label htmlFor="">Section Description</label>
+
       <textarea
+        defaultValue={data?.sectionDescription}
         placeholder="Section Description"
         onChange={(e) => {
           setParagraphWithImage({
@@ -47,11 +57,16 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
             }
           });
         }}
+        required
       />
+      <label htmlFor="">Section Asset URL</label>
+
       <input
+        defaultValue={data?.asset}
         type="text"
         placeholder="Section Asset URL"
         {...register('asset5d', {
+          required: true,
           pattern: validate
         })}
         onChange={(e) => {
@@ -69,7 +84,10 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
           }
         }}
       />
+      <label htmlFor="">Background Color (HEX code)</label>
+
       <input
+        defaultValue={data?.style?.backgroundColor}
         type="text"
         placeholder="Background Color"
         onChange={(e) => {
@@ -90,7 +108,10 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
           }
         }}
       />
+      <label htmlFor="">Text Color (HEX code)</label>
+
       <input
+        defaultValue={data?.style?.textColor}
         type="text"
         placeholder="Text Color"
         onChange={(e) => {
@@ -110,6 +131,7 @@ const ParagraphWithImage = ({ register, paragraphWithImage, setParagraphWithImag
             setError('Please enter valid HEX');
           }
         }}
+        required
       />
     </div>
   );

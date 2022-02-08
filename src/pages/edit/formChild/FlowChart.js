@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-const FlowChart = ({ register, flowChart, setFlowChart }) => {
+const FlowChart = ({ register, flowChart, setFlowChart, data }) => {
   const [error, setError] = useState('');
   const pattern = '^#(?:[0-9a-fA-F]{3,4}){1,2}$';
   const validate = new RegExp(
@@ -21,9 +22,14 @@ const FlowChart = ({ register, flowChart, setFlowChart }) => {
         alignItems: 'center'
       }}
     >
+      <br />
       <h3 style={{ textTransform: 'capitalize' }}>Flowchart Banner Section</h3>
+      <br />
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <label htmlFor="">Section Title</label>
+
       <input
+        defaultValue={data?.sectionTitle}
         type="text"
         placeholder="Section Title"
         onChange={(e) => {
@@ -35,11 +41,16 @@ const FlowChart = ({ register, flowChart, setFlowChart }) => {
             }
           });
         }}
+        required
       />
+      <label htmlFor="">Section Asset URL</label>
+
       <input
+        defaultValue={data?.asset}
         type="text"
         placeholder="Section Asset URL"
         {...register('asset4d', {
+          required: true,
           pattern: validate
         })}
         onChange={(e) => {
@@ -54,7 +65,10 @@ const FlowChart = ({ register, flowChart, setFlowChart }) => {
           }
         }}
       />
+      <label htmlFor="">Background Color (HEX code)</label>
+
       <input
+        defaultValue={data?.style?.backgroundColor}
         type="text"
         placeholder="Background Color"
         onChange={(e) => {
@@ -74,8 +88,12 @@ const FlowChart = ({ register, flowChart, setFlowChart }) => {
             setError('Please enter valid HEX');
           }
         }}
+        required
       />
+      <label htmlFor="">Text Color (HEX code)</label>
+
       <input
+        defaultValue={data?.style?.textColor}
         type="text"
         placeholder="Text Color"
         onChange={(e) => {
@@ -95,6 +113,7 @@ const FlowChart = ({ register, flowChart, setFlowChart }) => {
             setError('Please enter valid HEX');
           }
         }}
+        required
       />
     </div>
   );
