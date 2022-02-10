@@ -49,7 +49,7 @@ const FlowChart = ({ register, flowChart, setFlowChart, data }) => {
         defaultValue={data?.asset}
         type="text"
         placeholder="Section Asset URL"
-        {...register('asset4d', {
+        {...register('asset9d', {
           required: true,
           pattern: validate
         })}
@@ -59,6 +59,26 @@ const FlowChart = ({ register, flowChart, setFlowChart, data }) => {
             setFlowChart({
               ...flowChart,
               content: { ...flowChart?.content, asset: e.target.value }
+            });
+          } else {
+            setError('please enter a valid url');
+          }
+        }}
+      />
+      <label htmlFor="">Alternate Asset URL</label>
+      <input
+        type="text"
+        placeholder="Alternate Asset URL"
+        {...register('asset4d', {
+          required: true,
+          pattern: validate
+        })}
+        onChange={(e) => {
+          if (validate.test(e.target.value)) {
+            setError(null);
+            setFlowChart({
+              ...flowChart,
+              content: { ...flowChart?.content, alter_asset: e.target.value }
             });
           } else {
             setError('please enter a valid url');

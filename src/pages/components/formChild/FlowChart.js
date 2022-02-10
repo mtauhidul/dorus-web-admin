@@ -63,6 +63,26 @@ const FlowChart = ({ register, flowChart, setFlowChart }) => {
           }
         }}
       />
+      <label htmlFor="">Alternate Asset URL</label>
+      <input
+        type="text"
+        placeholder="Alternate Asset URL"
+        {...register('asset4d', {
+          required: true,
+          pattern: validate
+        })}
+        onChange={(e) => {
+          if (validate.test(e.target.value)) {
+            setError(null);
+            setFlowChart({
+              ...flowChart,
+              content: { ...flowChart?.content, asset: e.target.value }
+            });
+          } else {
+            setError('please enter a valid url');
+          }
+        }}
+      />
       <label htmlFor="">Background Color (HEX code)</label>
 
       <input

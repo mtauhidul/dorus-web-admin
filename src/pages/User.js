@@ -203,14 +203,20 @@ export default function User() {
                       <TableCell component="th" scope="row" padding="none">
                         <Stack direction="row" alignItems="center" spacing={2}>
                           <Typography variant="subtitle2" noWrap />
-                          <Typography variant="subtitle2" noWrap>
-                            {blog.en.header.status ? blog.en.header.status : 'Blog Status'}
-                          </Typography>
+                          {blog.is_published === 1 ? (
+                            <Typography style={{ color: 'green' }} variant="subtitle2" noWrap>
+                              Published
+                            </Typography>
+                          ) : (
+                            <Typography style={{ color: 'red' }} variant="subtitle2" noWrap>
+                              Unpublished
+                            </Typography>
+                          )}
                         </Stack>
                       </TableCell>
 
                       <TableCell align="right">
-                        <UserMoreMenu id={blog.page_id} />
+                        <UserMoreMenu blog={blog} />
                       </TableCell>
                     </TableRow>
                   ))}

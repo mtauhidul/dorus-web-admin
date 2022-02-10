@@ -4,14 +4,34 @@ import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 import { Icon } from '@iconify/react';
 // material
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import axios from 'axios';
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu({ id }) {
+export default function UserMoreMenu({ blog }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  const changeStatus = async (data) => {
+    console.log(data);
+    const id = data.page_id;
+    console.log(id);
+    const newData = { status: data.is_published === 1 ? '0' : '1' };
+    console.log(newData);
+    const token = window.sessionStorage.getItem('token');
+    const headers = {
+      Authorization: token,
+      integrity: '2H7g8BG75Zsc1NJTdljBBmr79KI3qEMrefR0LZQ'
+    };
+    const response = await axios.put(
+      `https://sandboxuat.centralindia.cloudapp.azure.com/admin/post/status/publish/${id}`,
+      newData,
+      { headers }
+    );
+    console.log(response);
+  };
 
   return (
     <>
@@ -33,12 +53,16 @@ export default function UserMoreMenu({ id }) {
           <ListItemIcon>
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
-          <ListItemText primary="Update Status" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText
+            onClick={() => changeStatus(blog)}
+            primary="Change Status"
+            primaryTypographyProps={{ variant: 'body2' }}
+          />
         </MenuItem>
 
         <MenuItem
           component={RouterLink}
-          to={`/dashboard/edit/${id}`}
+          to={`/dashboard/edit/${blog?.page_id}`}
           sx={{ color: 'text.secondary' }}
         >
           <ListItemIcon>
