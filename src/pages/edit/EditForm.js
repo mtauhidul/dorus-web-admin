@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable eqeqeq */
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
+import { TimeOutContext } from '../../App';
 import AnotherParagraph from './formChild/AnotherParagraph';
 import AnotherParaImg from './formChild/AnotherParaImg';
 import BannerAnotherArticle from './formChild/BannerAnotherArticle';
@@ -15,16 +16,17 @@ import ParagraphWithImage from './formChild/ParagraphWithImage';
 import TextParagraph from './formChild/TextParagraph';
 
 const EditForm = ({ blog }) => {
+  const [timeout, setTimeout] = useContext(TimeOutContext);
   console.log(blog);
   const { id } = useParams();
-  const [formTop, setFormTop] = useState({ ...blog?.en });
-  const [initialBannerR, setInitialBannerR] = useState(blog?.en?.sections[0]);
-  const [TextParagraphR, setTextParagraph] = useState(blog?.en?.sections[1]);
-  const [flowChart, setFlowChart] = useState(blog?.en?.sections[2]);
-  const [paragraphWithImage, setParagraphWithImage] = useState(blog?.en?.sections[3]);
-  const [TextParagraphA, setTextParagraphA] = useState(blog?.en?.sections[4]);
-  const [paragraphWithImage2, setParagraphWithImage2] = useState(blog?.en?.sections[5]);
-  const [bannerAnotherArticle, setBannerAnotherArticle] = useState(blog?.en?.sections[6]);
+  const [formTop, setFormTop] = useState({ ...blog });
+  const [initialBannerR, setInitialBannerR] = useState(blog?.sections[0]);
+  const [TextParagraphR, setTextParagraph] = useState(blog?.sections[1]);
+  const [flowChart, setFlowChart] = useState(blog?.sections[2]);
+  const [paragraphWithImage, setParagraphWithImage] = useState(blog?.sections[3]);
+  const [TextParagraphA, setTextParagraphA] = useState(blog?.sections[4]);
+  const [paragraphWithImage2, setParagraphWithImage2] = useState(blog?.sections[5]);
+  const [bannerAnotherArticle, setBannerAnotherArticle] = useState(blog?.sections[6]);
 
   const postData = async (data) => {
     delete data.language;
@@ -39,7 +41,7 @@ const EditForm = ({ blog }) => {
       data,
       { headers }
     );
-    console.log(response);
+    console.log(response.status);
   };
 
   const { register, handleSubmit } = useForm();

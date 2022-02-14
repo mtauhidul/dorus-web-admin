@@ -14,12 +14,15 @@ export const GlobalContext = createContext();
 
 export const AuthContext = createContext();
 
+export const TimeOutContext = createContext();
+
 export default function App() {
   const [auth, setAuth] = useState({
     status: false,
     token: ''
   });
   const [global, setGlobal] = useState([]);
+  const [timeout, setTimeout] = useState('');
 
   if (auth)
     return (
@@ -33,7 +36,9 @@ export default function App() {
         <BaseOptionChartStyle />
         <GlobalContext.Provider value={[global, setGlobal]}>
           <AuthContext.Provider value={[auth, setAuth]}>
-            <Router />
+            <TimeOutContext.Provider value={[timeout, setTimeout]}>
+              <Router />
+            </TimeOutContext.Provider>
           </AuthContext.Provider>
         </GlobalContext.Provider>
       </ThemeConfig>
