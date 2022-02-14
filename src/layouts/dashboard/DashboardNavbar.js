@@ -14,7 +14,7 @@ const APPBAR_DESKTOP = 92;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none', // Fix on Mobile
-  backgroundColor: 'transparent'
+  backgroundColor: 'white'
 }));
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({

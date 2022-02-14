@@ -1,5 +1,6 @@
 // routes
 import { createContext, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 // components
 import ScrollToTop from './components/ScrollToTop';
@@ -23,6 +24,10 @@ export default function App() {
   if (auth)
     return (
       <ThemeConfig>
+        <div>
+          <Toaster />
+        </div>
+
         <ScrollToTop />
         <GlobalStyles />
         <BaseOptionChartStyle />

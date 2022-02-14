@@ -3,10 +3,13 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { baseUrl, integrity } from '../utils/api';
 import Form from './components/Form';
 
 export default function AddBlog() {
+  const history = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,6 +25,9 @@ export default function AddBlog() {
     console.log(defaultValues);
     const response = await axios.post(`${baseUrl}/admin/post/en`, defaultValues, { headers });
     console.log(response);
+    if (response.status === 401) {
+      history.push('/login');
+    }
   };
 
   const onSubmit = (data) => {
@@ -108,7 +114,11 @@ export default function AddBlog() {
       ]
     };
 
-    postNewBlog(defaultValues);
+    toast.promise(postNewBlog(defaultValues), {
+      loading: 'Created...',
+      success: <b>Successfully created</b>,
+      error: <b>Error! Not created</b>
+    });
   };
 
   return (

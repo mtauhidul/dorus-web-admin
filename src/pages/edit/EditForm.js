@@ -3,6 +3,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import AnotherParagraph from './formChild/AnotherParagraph';
 import AnotherParaImg from './formChild/AnotherParaImg';
@@ -60,7 +61,12 @@ const EditForm = (props) => {
     };
 
     // final output
-    postData(defaultValues);
+
+    toast.promise(postData(defaultValues), {
+      loading: 'Updating...',
+      success: <b>Successfully updated</b>,
+      error: <b>Error! Not updated</b>
+    });
   };
   return (
     <form

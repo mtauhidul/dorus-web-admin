@@ -67,6 +67,7 @@ const FlowChart = ({ register, flowChart, setFlowChart, data }) => {
       />
       <label htmlFor="">Alternate Asset URL</label>
       <input
+        defaultValue={data?.alter_asset}
         type="text"
         placeholder="Alternate Asset URL"
         {...register('asset4d', {
