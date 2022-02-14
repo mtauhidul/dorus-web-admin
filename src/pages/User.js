@@ -79,21 +79,22 @@ export default function User() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchUrl = `${baseUrl}/admin/post/en`;
-      const token = window.sessionStorage.getItem('token');
+  const fetchData = async () => {
+    const fetchUrl = `${baseUrl}/admin/post/en`;
+    const token = window.sessionStorage.getItem('token');
 
-      const headers = {
-        integrity,
-        Authorization: token
-      };
-      const response = await axios.get(fetchUrl, { headers });
-
-      setData(response.data.message);
-      setGlobal(response.data.message);
-      console.log(response.data.message);
+    const headers = {
+      integrity,
+      Authorization: token
     };
+    const response = await axios.get(fetchUrl, { headers });
+
+    setData(response.data.message);
+    setGlobal(response.data.message);
+    console.log(response.data.message);
+  };
+
+  useEffect(() => {
     fetchData();
   }, [setGlobal]);
 
@@ -216,7 +217,7 @@ export default function User() {
                       </TableCell>
 
                       <TableCell align="right">
-                        <UserMoreMenu blog={blog} />
+                        <UserMoreMenu fetchData={fetchData} blog={blog} />
                       </TableCell>
                     </TableRow>
                   ))}

@@ -5,12 +5,15 @@ import { Icon } from '@iconify/react';
 // material
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import axios from 'axios';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link as RouterLink } from 'react-router-dom';
+import { GlobalContext } from '../../../App';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu({ blog }) {
+export default function UserMoreMenu({ blog, fetchData }) {
+  const [global, setGlobal] = useContext(GlobalContext);
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,6 +34,15 @@ export default function UserMoreMenu({ blog }) {
       { headers }
     );
     console.log(response);
+    fetchData();
+  };
+
+  const updateBlogStatus = (data) => {
+    toast.promise(changeStatus(data), {
+      loading: 'Updating...',
+      success: <b>Successfully updated</b>,
+      error: <b>Error! Not updated</b>
+    });
   };
 
   return (
@@ -54,7 +66,7 @@ export default function UserMoreMenu({ blog }) {
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
           <ListItemText
-            onClick={() => changeStatus(blog)}
+            onClick={() => updateBlogStatus(blog)}
             primary="Change Status"
             primaryTypographyProps={{ variant: 'body2' }}
           />
