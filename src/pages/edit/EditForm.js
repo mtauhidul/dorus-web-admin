@@ -14,12 +14,9 @@ import InitialBanner from './formChild/InitialBanner';
 import ParagraphWithImage from './formChild/ParagraphWithImage';
 import TextParagraph from './formChild/TextParagraph';
 
-const EditForm = (props) => {
-  const { blogData } = props;
+const EditForm = ({ blog }) => {
+  console.log(blog);
   const { id } = useParams();
-  const blog = blogData.find((b) => b.page_id == id);
-  console.log(blog?.en);
-  const data = blog?.en;
   const [formTop, setFormTop] = useState({ ...blog?.en });
   const [initialBannerR, setInitialBannerR] = useState(blog?.en?.sections[0]);
   const [TextParagraphR, setTextParagraph] = useState(blog?.en?.sections[1]);
@@ -81,51 +78,51 @@ const EditForm = (props) => {
       <br />
       <br />
       <FormTop
-        associated_template={data?.associated_template}
-        header={data?.header}
-        url={data?.page_url}
-        type={data?.page_type}
+        associated_template={blog?.associated_template}
+        header={blog?.header}
+        url={blog?.page_url}
+        type={blog?.page_type}
         register={register}
         formTop={formTop}
         setFormTop={setFormTop}
       />
       <div>
         <InitialBanner
-          data={data?.sections[0]?.content}
+          data={blog?.sections[0]?.content}
           register={register}
           initialBannerR={initialBannerR}
           setInitialBannerR={setInitialBannerR}
         />
         <TextParagraph
-          data={data?.sections[1]?.content}
+          data={blog?.sections[1]?.content}
           TextParagraphR={TextParagraphR}
           setTextParagraph={setTextParagraph}
         />
         <FlowChart
-          data={data?.sections[2]?.content}
+          data={blog?.sections[2]?.content}
           register={register}
           flowChart={flowChart}
           setFlowChart={setFlowChart}
         />
         <ParagraphWithImage
-          data={data?.sections[3]?.content}
+          data={blog?.sections[3]?.content}
           paragraphWithImage={paragraphWithImage}
           setParagraphWithImage={setParagraphWithImage}
           register={register}
         />
         <AnotherParagraph
-          data={data?.sections[4]?.content}
+          data={blog?.sections[4]?.content}
           TextParagraphR={TextParagraphA}
           setTextParagraph={setTextParagraphA}
         />
         <AnotherParaImg
-          data={data?.sections[5]?.content}
+          data={blog?.sections[5]?.content}
           paragraphWithImage={paragraphWithImage2}
           setParagraphWithImage={setParagraphWithImage2}
           register={register}
         />
         <BannerAnotherArticle
-          data={data?.sections[6]?.content}
+          data={blog?.sections[6]?.content}
           setBannerAnotherArticle={setBannerAnotherArticle}
           bannerAnotherArticle={bannerAnotherArticle}
           register={register}
