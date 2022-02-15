@@ -84,6 +84,7 @@ const Form = () => {
       sectionTitle: '',
       sectionDescription: '',
       asset: '',
+      alter_asset: '',
       style: {
         backgroundColor: '',
         textColor: ''

@@ -56,10 +56,13 @@ const AnotherParaImg = ({ register, paragraphWithImage, setParagraphWithImage })
           });
         }}
       />
-      {/* <input
+
+      <label htmlFor="">Section Asset URL</label>
+
+      <input
         type="text"
         placeholder="Section Asset URL"
-        {...register('asset5d', {
+        {...register('asset6d', {
           pattern: validate
         })}
         onChange={(e) => {
@@ -76,7 +79,31 @@ const AnotherParaImg = ({ register, paragraphWithImage, setParagraphWithImage })
             setError('please enter a valid url');
           }
         }}
-      /> */}
+      />
+
+      <label htmlFor="">Section Alternative Asset URL</label>
+
+      <input
+        type="text"
+        placeholder="Section Alternative Asset URL"
+        {...register('asset9d', {
+          pattern: validate
+        })}
+        onChange={(e) => {
+          if (validate.test(e.target.value)) {
+            setError(null);
+            setParagraphWithImage({
+              ...paragraphWithImage,
+              content: {
+                ...paragraphWithImage?.content,
+                alter_asset: e.target.value
+              }
+            });
+          } else {
+            setError('please enter a valid url');
+          }
+        }}
+      />
       <label htmlFor="">Background Color (HEX code)</label>
 
       <input
