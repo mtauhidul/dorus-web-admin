@@ -1,40 +1,17 @@
 /* eslint-disable no-unused-vars */
 import Box from '@mui/material/Box';
-import axios from 'axios';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import { GlobalContext } from '../App';
-import { baseUrl, integrity } from '../utils/api';
 import EditForm from './edit/EditForm';
 
 export default function EditBlog() {
-  const { id } = useParams();
   const [global, setGlobal] = React.useContext(GlobalContext);
-  const [blog, setBlog] = React.useState();
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm();
-
-  const fetchData = async () => {
-    const fetchUrl = `${baseUrl}/admin/post/en/${id}`;
-    const token = window.sessionStorage.getItem('token');
-
-    const headers = {
-      integrity,
-      Authorization: token
-    };
-    const response = await axios.get(fetchUrl, { headers });
-
-    setBlog(response.data.message);
-    console.log(response.data.message);
-  };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
 
   // const token = window.sessionStorage.getItem('token');
   // const headers = {
@@ -134,11 +111,9 @@ export default function EditBlog() {
   //   postNewBlog(defaultValues);
   // };
 
-  console.log(blog);
-
   return (
     <Box id="formBox">
-      <EditForm blog={blog} />
+      <EditForm blogData={global} />
     </Box>
   );
 }

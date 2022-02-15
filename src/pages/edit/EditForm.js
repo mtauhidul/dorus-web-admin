@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable eqeqeq */
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
-import { TimeOutContext } from '../../App';
 import AnotherParagraph from './formChild/AnotherParagraph';
 import AnotherParaImg from './formChild/AnotherParaImg';
 import BannerAnotherArticle from './formChild/BannerAnotherArticle';
@@ -15,18 +14,20 @@ import InitialBanner from './formChild/InitialBanner';
 import ParagraphWithImage from './formChild/ParagraphWithImage';
 import TextParagraph from './formChild/TextParagraph';
 
-const EditForm = ({ blog }) => {
-  const [timeout, setTimeout] = useContext(TimeOutContext);
-  console.log(blog);
+const EditForm = (props) => {
+  const { blogData } = props;
   const { id } = useParams();
-  const [formTop, setFormTop] = useState({ ...blog });
-  const [initialBannerR, setInitialBannerR] = useState(blog?.sections[0]);
-  const [TextParagraphR, setTextParagraph] = useState(blog?.sections[1]);
-  const [flowChart, setFlowChart] = useState(blog?.sections[2]);
-  const [paragraphWithImage, setParagraphWithImage] = useState(blog?.sections[3]);
-  const [TextParagraphA, setTextParagraphA] = useState(blog?.sections[4]);
-  const [paragraphWithImage2, setParagraphWithImage2] = useState(blog?.sections[5]);
-  const [bannerAnotherArticle, setBannerAnotherArticle] = useState(blog?.sections[6]);
+  const blog = blogData.find((b) => b.page_id == id);
+  console.log(blog?.en);
+  const data = blog?.en;
+  const [formTop, setFormTop] = useState({ ...blog?.en });
+  const [initialBannerR, setInitialBannerR] = useState(blog?.en?.sections[0]);
+  const [TextParagraphR, setTextParagraph] = useState(blog?.en?.sections[1]);
+  const [flowChart, setFlowChart] = useState(blog?.en?.sections[2]);
+  const [paragraphWithImage, setParagraphWithImage] = useState(blog?.en?.sections[3]);
+  const [TextParagraphA, setTextParagraphA] = useState(blog?.en?.sections[4]);
+  const [paragraphWithImage2, setParagraphWithImage2] = useState(blog?.en?.sections[5]);
+  const [bannerAnotherArticle, setBannerAnotherArticle] = useState(blog?.en?.sections[6]);
 
   const postData = async (data) => {
     delete data.language;
@@ -41,7 +42,7 @@ const EditForm = ({ blog }) => {
       data,
       { headers }
     );
-    console.log(response.status);
+    console.log(response);
   };
 
   const { register, handleSubmit } = useForm();
@@ -80,51 +81,51 @@ const EditForm = ({ blog }) => {
       <br />
       <br />
       <FormTop
-        associated_template={blog?.associated_template}
-        header={blog?.header}
-        url={blog?.page_url}
-        type={blog?.page_type}
+        associated_template={data?.associated_template}
+        header={data?.header}
+        url={data?.page_url}
+        type={data?.page_type}
         register={register}
         formTop={formTop}
         setFormTop={setFormTop}
       />
       <div>
         <InitialBanner
-          data={blog?.sections[0]?.content}
+          data={data?.sections[0]?.content}
           register={register}
           initialBannerR={initialBannerR}
           setInitialBannerR={setInitialBannerR}
         />
         <TextParagraph
-          data={blog?.sections[1]?.content}
+          data={data?.sections[1]?.content}
           TextParagraphR={TextParagraphR}
           setTextParagraph={setTextParagraph}
         />
         <FlowChart
-          data={blog?.sections[2]?.content}
+          data={data?.sections[2]?.content}
           register={register}
           flowChart={flowChart}
           setFlowChart={setFlowChart}
         />
         <ParagraphWithImage
-          data={blog?.sections[3]?.content}
+          data={data?.sections[3]?.content}
           paragraphWithImage={paragraphWithImage}
           setParagraphWithImage={setParagraphWithImage}
           register={register}
         />
         <AnotherParagraph
-          data={blog?.sections[4]?.content}
+          data={data?.sections[4]?.content}
           TextParagraphR={TextParagraphA}
           setTextParagraph={setTextParagraphA}
         />
         <AnotherParaImg
-          data={blog?.sections[5]?.content}
+          data={data?.sections[5]?.content}
           paragraphWithImage={paragraphWithImage2}
           setParagraphWithImage={setParagraphWithImage2}
           register={register}
         />
         <BannerAnotherArticle
-          data={blog?.sections[6]?.content}
+          data={data?.sections[6]?.content}
           setBannerAnotherArticle={setBannerAnotherArticle}
           bannerAnotherArticle={bannerAnotherArticle}
           register={register}
