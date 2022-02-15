@@ -2,16 +2,16 @@
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { GlobalContext } from '../App';
 import EditForm from './edit/EditForm';
 
 export default function EditBlog() {
-  const [global, setGlobal] = React.useContext(GlobalContext);
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm();
+
+  const storedData = JSON.parse(window.sessionStorage.getItem('data'));
 
   // const token = window.sessionStorage.getItem('token');
   // const headers = {
@@ -113,7 +113,7 @@ export default function EditBlog() {
 
   return (
     <Box id="formBox">
-      <EditForm blogData={global} />
+      <EditForm storedData={storedData} blogData={global} />
     </Box>
   );
 }

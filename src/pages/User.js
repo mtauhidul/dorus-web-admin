@@ -91,12 +91,13 @@ export default function User() {
 
     setData(response.data.message);
     setGlobal(response.data.message);
+    window.sessionStorage.setItem('data', JSON.stringify(response.data.message));
     console.log(response.data.message);
   };
 
   useEffect(() => {
     fetchData();
-  }, [setGlobal]);
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

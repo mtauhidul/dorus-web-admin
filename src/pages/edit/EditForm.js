@@ -14,10 +14,12 @@ import InitialBanner from './formChild/InitialBanner';
 import ParagraphWithImage from './formChild/ParagraphWithImage';
 import TextParagraph from './formChild/TextParagraph';
 
-const EditForm = (props) => {
-  const { blogData } = props;
+const EditForm = ({ global, storedData }) => {
   const { id } = useParams();
-  const blog = blogData.find((b) => b.page_id == id);
+  console.log(global);
+  const blog = global
+    ? global.find((b) => b.page_id == id)
+    : storedData.find((b) => b.page_id == id);
   console.log(blog?.en);
   const data = blog?.en;
   const [formTop, setFormTop] = useState({ ...blog?.en });
