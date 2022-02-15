@@ -9,7 +9,7 @@ import { baseUrl, integrity } from '../utils/api';
 import Form from './components/Form';
 
 export default function AddBlog() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,11 +22,20 @@ export default function AddBlog() {
     integrity
   };
   const postNewBlog = async (defaultValues) => {
-    console.log(defaultValues);
-    const response = await axios.post(`${baseUrl}/admin/post/en`, defaultValues, { headers });
-    console.log(response);
-    if (response.status === 401) {
-      history.push('/login');
+    toast.loading('Creating...');
+    try {
+      const response = await axios.post(`${baseUrl}/admin/post/en`, defaultValues, { headers });
+      toast.dismiss();
+      toast.success('Successfully created');
+      console.log(response);
+    } catch (error) {
+      toast.dismiss();
+      if (error.response.status === 401) {
+        toast.error('Authentication failed, Login again');
+        navigate('/login');
+      } else {
+        toast.error('Error! Try again');
+      }
     }
   };
 
@@ -114,11 +123,7 @@ export default function AddBlog() {
       ]
     };
 
-    toast.promise(postNewBlog(defaultValues), {
-      loading: 'Created...',
-      success: <b>Successfully created</b>,
-      error: <b>Error! Not created</b>
-    });
+    postNewBlog(defaultValues);
   };
 
   return (

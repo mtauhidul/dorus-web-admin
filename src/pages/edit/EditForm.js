@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AnotherParagraph from './formChild/AnotherParagraph';
 import AnotherParaImg from './formChild/AnotherParaImg';
 import BannerAnotherArticle from './formChild/BannerAnotherArticle';
@@ -15,6 +15,7 @@ import ParagraphWithImage from './formChild/ParagraphWithImage';
 import TextParagraph from './formChild/TextParagraph';
 
 const EditForm = ({ global, storedData }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   console.log(global);
   const blog = storedData.find((b) => b.page_id == id);
@@ -30,6 +31,7 @@ const EditForm = ({ global, storedData }) => {
   const [bannerAnotherArticle, setBannerAnotherArticle] = useState(blog?.en?.sections[6]);
 
   const postData = async (data) => {
+    toast.loading('Updating...');
     delete data.language;
     console.log(data);
     const token = window.sessionStorage.getItem('token');
@@ -37,12 +39,24 @@ const EditForm = ({ global, storedData }) => {
       Authorization: token,
       integrity: '2H7g8BG75Zsc1NJTdljBBmr79KI3qEMrefR0LZQ'
     };
-    const response = await axios.put(
-      `https://sandboxuat.centralindia.cloudapp.azure.com/admin/post/en/${id}`,
-      data,
-      { headers }
-    );
-    console.log(response);
+    try {
+      const response = await axios.put(
+        `https://sandboxuat.centralindia.cloudapp.azure.com/admin/post/en/${id}`,
+        data,
+        { headers }
+      );
+      toast.dismiss();
+      toast.success('Successfully updated');
+      console.log(response);
+    } catch (error) {
+      toast.dismiss();
+      if (error.response.status === 401) {
+        toast.error('Authentication failed, Login again');
+        navigate('/login');
+      } else {
+        toast.error('Error! Try again');
+      }
+    }
   };
 
   const { register, handleSubmit } = useForm();
@@ -61,12 +75,7 @@ const EditForm = ({ global, storedData }) => {
     };
 
     // final output
-
-    toast.promise(postData(defaultValues), {
-      loading: 'Updating...',
-      success: <b>Successfully updated</b>,
-      error: <b>Error! Not updated</b>
-    });
+    postData(defaultValues);
   };
   return (
     <form

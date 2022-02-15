@@ -7,42 +7,46 @@ import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/mat
 import axios from 'axios';
 import { useContext, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../../App';
 
 // ----------------------------------------------------------------------
 
 export default function UserMoreMenu({ blog, fetchData }) {
+  const navigate = useNavigate();
   const [global, setGlobal] = useContext(GlobalContext);
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const changeStatus = async (data) => {
-    console.log(data);
-    const id = data.page_id;
-    console.log(id);
-    const newData = { status: data.is_published === 1 ? '0' : '1' };
-    console.log(newData);
-    const token = window.sessionStorage.getItem('token');
-    const headers = {
-      Authorization: token,
-      integrity: '2H7g8BG75Zsc1NJTdljBBmr79KI3qEMrefR0LZQ'
-    };
-    const response = await axios.put(
-      `https://sandboxuat.centralindia.cloudapp.azure.com/admin/post/status/publish/${id}`,
-      newData,
-      { headers }
-    );
-    console.log(response);
-    fetchData();
-  };
+    toast.loading('Updating...');
 
-  const updateBlogStatus = (data) => {
-    toast.promise(changeStatus(data), {
-      loading: 'Updating...',
-      success: <b>Successfully updated</b>,
-      error: <b>Error! Not updated</b>
-    });
+    try {
+      const id = data.page_id;
+      const newData = { status: data.is_published === 1 ? '0' : '1' };
+      const token = window.sessionStorage.getItem('token');
+      const headers = {
+        Authorization: token,
+        integrity: '2H7g8BG75Zsc1NJTdljBBmr79KI3qEMrefR0LZQ'
+      };
+      const response = await axios.put(
+        `https://sandboxuat.centralindia.cloudapp.azure.com/admin/post/status/publish/${id}`,
+        newData,
+        { headers }
+      );
+
+      toast.dismiss();
+      toast.success('Successfully updated');
+    } catch (error) {
+      toast.dismiss();
+      if (error.response.status === 401) {
+        toast.error('Authentication failed, Login again');
+        navigate('/login');
+      } else {
+        toast.error('Error! Try again');
+      }
+    }
+    fetchData();
   };
 
   return (
@@ -66,7 +70,7 @@ export default function UserMoreMenu({ blog, fetchData }) {
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
           <ListItemText
-            onClick={() => updateBlogStatus(blog)}
+            onClick={() => changeStatus(blog)}
             primary="Change Status"
             primaryTypographyProps={{ variant: 'body2' }}
           />
