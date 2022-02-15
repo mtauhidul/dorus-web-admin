@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import Box from '@mui/material/Box';
+import axios from 'axios';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { baseUrl, integrity } from '../utils/api';
 import EditForm from './edit/EditForm';
 
 export default function EditBlog() {
@@ -10,6 +13,24 @@ export default function EditBlog() {
     handleSubmit,
     formState: { errors }
   } = useForm();
+
+  const fetchData = async () => {
+    const fetchUrl = `${baseUrl}/admin/post/en`;
+    const token = window.sessionStorage.getItem('token');
+
+    const headers = {
+      integrity,
+      Authorization: token
+    };
+    const response = await axios.get(fetchUrl, { headers });
+
+    window.sessionStorage.setItem('data', JSON.stringify(response.data.message));
+    console.log(response.data.message);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const storedData = JSON.parse(window.sessionStorage.getItem('data'));
 

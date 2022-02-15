@@ -17,9 +17,7 @@ import TextParagraph from './formChild/TextParagraph';
 const EditForm = ({ global, storedData }) => {
   const { id } = useParams();
   console.log(global);
-  const blog = global
-    ? global.find((b) => b.page_id == id)
-    : storedData.find((b) => b.page_id == id);
+  const blog = storedData.find((b) => b.page_id == id);
   console.log(blog?.en);
   const data = blog?.en;
   const [formTop, setFormTop] = useState({ ...blog?.en });
